@@ -152,3 +152,4 @@ func SetupDatabase() {
 
     fmt.Println("Database setup completed with seed data.")
 }
+

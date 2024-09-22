@@ -4,6 +4,7 @@ import { Booking } from './booking.interface';
 import { Benefits } from './benefits.interface';
 import { Payment } from './payment.interface';
 
+
 // ตั้งค่า URL ของ API
 const API_URL = 'http://localhost:8020'; // เปลี่ยนตาม URL ของ API ของคุณ
 
@@ -23,6 +24,7 @@ export const MemberService = {
     },
 };
 
+
 // Booking API Service
 export const BookingService = {
     getBookings: async (): Promise<Booking[]> => {
@@ -38,6 +40,7 @@ export const BookingService = {
         return response.data;
     },
 };
+
 
 // Benefits API Service
 export const BenefitsService = {
@@ -66,7 +69,26 @@ export const PaymentService = {
         return response.data;
     },
     createPayment: async (payment: Payment): Promise<Payment> => {
+        console.log("Sending Payment:", payment);
         const response = await axios.post(`${API_URL}/Payment`, payment);
         return response.data;
     },
+
+    
+};
+
+
+
+
+// Mock payment function
+export const mockPayment = async (paymentData: Payment): Promise<Payment> => {
+    // จำลองการชำระเงิน
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                ...paymentData,
+                PaymentStatus: true, // ตั้งค่า PaymentStatus เป็น true
+            });
+        }, 1000); // ล่าช้า 1 วินาทีเพื่อจำลองการทำงาน
+    });
 };

@@ -92,110 +92,28 @@ const headerStyle: React.CSSProperties = {
   ];
   
 
-// const Payment: React.FC = () => (
-//   <Layout style={layoutStyle} >
-//       <Header style={headerStyle}>
-//         <div className='container'>
-//             <div className='topbar'>
-//               <div style={headerContainerStyle}>
-//                   <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} />
-//                   <Flex gap="small" wrap>
-//                     <Button type="primary" style={buttonStyle}>Home</Button>
-//                     <Button type="primary" style={buttonStyle}>Fight</Button>
-//                     <Button type="primary" style={buttonStyle}>Benefits</Button>
-//                     <Button type="primary" style={buttonStyle}>Help Center</Button>
-//                   </Flex>
-//                   </div>
-//              </div>
-//         </div>
-//       </Header>
-//       <Content style={contentStyle}>
-//       <>
-//         <Divider orientation="left"></Divider>
-//         <List
-//             bordered
-//             dataSource={data}
-//             style={listStyle}
-//             renderItem={(item, index) => (
-//               <List.Item>
-//                 <Typography.Text>{item}</Typography.Text>
-//                 <Link to={index === 0 ? "/InternetBanking" : index === 1 ? "/Cards" : index === 2 ? "/Wallet" : "/Paypal"}>
-//                   <Button type="primary" style={buttonclickStyle}>click</Button>
-//                 </Link>
-//               </List.Item>
-//             )}
-//         />
-//         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-//           <Card title="Payment" bordered={false} style={cardStyle}>
-                 
-//               <Form.Item
-//                 layout="vertical"
-//                 label="Voucher/Promo Code"
-//                 name="Voucher/Promo Code"
-//                 rules={[{ required: true }]}
-//                 labelCol={{ span: 24 }}
-//                 wrapperCol={{ span: 24 }}
-//               >
-//                 <div style={inputContainerStyle}>
-//                   <Input style={{ flex: 1 }} />  {/* ใช้ flex: 1 เพื่อให้ Input ขยายเต็มพื้นที่ */}
-//                   <Button type="primary" style={buttoncodeStyle}>click</Button>
-//                 </div>
-//                 <br></br>
-//                 Flight
-//                 <br></br>
-//                 <br></br>
-//                 Price Detail
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 Total
-//                 <br></br>
-//                 <br></br>
-//                 <br></br>
-//                 PaymentStatus
-//               </Form.Item>
-              
-//           </Card>
-//         </div>
-//         </>
-//       </Content>
-//       <Footer style={footerStyle}></Footer>
-//     </Layout>
-// );
-
-// export default Payment;
-
 const Payment: React.FC = () => {
-  const [payments, setPayments] = useState<any[]>([]); // สร้าง state สำหรับเก็บข้อมูลการชำระเงิน
-  const [loading, setLoading] = useState<boolean>(true); // สถานะการโหลด
-  const [error, setError] = useState<string | null>(null); // สถานะข้อผิดพลาด
+  const [payments, setPayments] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const data = await PaymentService.getPayments(); // เรียกใช้ฟังก์ชันจาก API service
+        const data = await PaymentService.getPayments();
         setPayments(data);
       } catch (err) {
-        setError("Failed to fetch payments"); // เก็บข้อความข้อผิดพลาด
+        setError("Failed to fetch payments");
       } finally {
-        setLoading(false); // ตั้งค่า loading เป็น false
+        setLoading(false);
       }
     };
 
     fetchPayments();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // แสดงข้อความโหลด
-  }
-
-  if (error) {
-    return <div>{error}</div>; // แสดงข้อความข้อผิดพลาด
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <Layout style={layoutStyle} >
@@ -283,3 +201,82 @@ const Payment: React.FC = () => {
 };
 
 export default Payment;
+
+
+
+// const Payment: React.FC = () => (
+//   <Layout style={layoutStyle} >
+//       <Header style={headerStyle}>
+//         <div className='container'>
+//             <div className='topbar'>
+//               <div style={headerContainerStyle}>
+//                   <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} />
+//                   <Flex gap="small" wrap>
+//                     <Button type="primary" style={buttonStyle}>Home</Button>
+//                     <Button type="primary" style={buttonStyle}>Fight</Button>
+//                     <Button type="primary" style={buttonStyle}>Benefits</Button>
+//                     <Button type="primary" style={buttonStyle}>Help Center</Button>
+//                   </Flex>
+//                   </div>
+//              </div>
+//         </div>
+//       </Header>
+//       <Content style={contentStyle}>
+//       <>
+//         <Divider orientation="left"></Divider>
+//         <List
+//             bordered
+//             dataSource={data}
+//             style={listStyle}
+//             renderItem={(item, index) => (
+//               <List.Item>
+//                 <Typography.Text>{item}</Typography.Text>
+//                 <Link to={index === 0 ? "/InternetBanking" : index === 1 ? "/Cards" : index === 2 ? "/Wallet" : "/Paypal"}>
+//                   <Button type="primary" style={buttonclickStyle}>click</Button>
+//                 </Link>
+//               </List.Item>
+//             )}
+//         />
+//         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+//           <Card title="Payment" bordered={false} style={cardStyle}>
+                 
+//               <Form.Item
+//                 layout="vertical"
+//                 label="Voucher/Promo Code"
+//                 name="Voucher/Promo Code"
+//                 rules={[{ required: true }]}
+//                 labelCol={{ span: 24 }}
+//                 wrapperCol={{ span: 24 }}
+//               >
+//                 <div style={inputContainerStyle}>
+//                   <Input style={{ flex: 1 }} />  {/* ใช้ flex: 1 เพื่อให้ Input ขยายเต็มพื้นที่ */}
+//                   <Button type="primary" style={buttoncodeStyle}>click</Button>
+//                 </div>
+//                 <br></br>
+//                 Flight
+//                 <br></br>
+//                 <br></br>
+//                 Price Detail
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 Total
+//                 <br></br>
+//                 <br></br>
+//                 <br></br>
+//                 PaymentStatus
+//               </Form.Item>
+              
+//           </Card>
+//         </div>
+//         </>
+//       </Content>
+//       <Footer style={footerStyle}></Footer>
+//     </Layout>
+// );
+
+// export default Payment;

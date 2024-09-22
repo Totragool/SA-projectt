@@ -48,6 +48,7 @@ func main() {
     r.GET("/Payment", controller.GetPayment)
     r.DELETE("/Payment/:id", controller.DeletePayment)
     r.PATCH("/Payment/:id", controller.UpdatePayment)
+    r.POST("/Payment/Mock", controller.MockPayment)
 
     r.GET("/", func(c *gin.Context) {
         c.String(http.StatusOK, fmt.Sprintf("API RUNNING... PORT: %s", PORT))
