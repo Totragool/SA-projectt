@@ -105,8 +105,8 @@ func CreateBooking(c *gin.Context) {
     }
 
     // เพิ่มการตรวจสอบความถูกต้องของข้อมูล
-    if booking.TotalPrice == "" || booking.BookingDate.IsZero() {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "BookingDate and TotalPrice are required"})
+    if booking.TotalPrice <= 0 || booking.BookingDate.IsZero() { // ตรวจสอบ TotalPrice เป็นค่าบวก
+        c.JSON(http.StatusBadRequest, gin.H{"error": "BookingDate and TotalPrice are required and TotalPrice must be greater than zero"})
         return
     }
 
@@ -138,17 +138,25 @@ func GetBooking(c *gin.Context) {
 }
 
 // GET /bookings/:id
+// GET /Member/:memberId/Bookings
 func GetBookingID(c *gin.Context) {
-    var booking entity.Booking
-    id := c.Param("id")
+    memberId := c.Param("memberId")
 
-    if err := config.DB().First(&booking, id).Error; err != nil {
-        c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+    var bookings []entity.Booking
+    if err := config.DB().Where("member_id = ?", memberId).Find(&bookings).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
 
-    c.JSON(http.StatusOK, gin.H{"data": booking})
+    // คืนค่าราคา
+    totalPrice := 0.0
+    for _, booking := range bookings {
+        totalPrice += booking.TotalPrice
+    }
+
+    c.JSON(http.StatusOK, gin.H{"memberId": memberId, "totalPrice": totalPrice, "bookings": bookings})
 }
+
 
 // DELETE /bookings/:id
 func DeleteBooking(c *gin.Context) {
@@ -181,7 +189,7 @@ func UpdateBooking(c *gin.Context) {
     if input.BookingDate != (time.Time{}) {
         booking.BookingDate = input.BookingDate
     }
-    if input.TotalPrice != "" {
+    if input.TotalPrice > 0 { // ตรวจสอบให้ TotalPrice เป็นค่าบวก
         booking.TotalPrice = input.TotalPrice
     }
 

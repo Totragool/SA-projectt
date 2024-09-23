@@ -26,8 +26,9 @@ import (
 type Booking struct {
     gorm.Model
     BookingDate time.Time
-    TotalPrice  string
+    TotalPrice  float64 // เปลี่ยนเป็น float64
 
     // 1 Booking สามารถมี 1 Payment
     Payment *Payment `gorm:"foreignKey:BookingID"`
 }
+

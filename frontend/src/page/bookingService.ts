@@ -7,11 +7,14 @@ export const useBookingService = () => {
 
     // เพิ่มการจองใหม่
     const createBooking = (booking: Booking): Booking => {
+        if (booking.TotalPrice <= 0) {
+            throw new Error("TotalPrice must be greater than zero");
+        }
         booking.id = bookings.length + 1; // กำหนด ID แบบ Auto-increment
         setBookings([...bookings, booking]);
         return booking;
     };
-
+    
     // ดึงข้อมูลการจองตาม ID
     const getBookingById = (id: number): Booking | undefined => {
         return bookings.find(booking => booking.id === id);
@@ -19,6 +22,10 @@ export const useBookingService = () => {
 
     // อัปเดตข้อมูลการจอง
     const updateBooking = (id: number, updatedData: Partial<Booking>): Booking | undefined => {
+        if (updatedData.TotalPrice !== undefined && updatedData.TotalPrice <= 0) {
+            throw new Error("TotalPrice must be greater than zero");
+        }
+    
         const updatedBookings = bookings.map(booking => {
             if (booking.id === id) {
                 return { ...booking, ...updatedData };
@@ -28,6 +35,7 @@ export const useBookingService = () => {
         setBookings(updatedBookings);
         return getBookingById(id);
     };
+    
 
     // ลบข้อมูลการจอง
     const deleteBooking = (id: number): boolean => {

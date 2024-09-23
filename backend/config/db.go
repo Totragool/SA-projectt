@@ -247,11 +247,11 @@ func seedBookings() {
     bookings := []entity.Booking{
         {
             BookingDate: time.Now(),
-            TotalPrice:  "5000.00",
+            TotalPrice:  5000.00,
         },
         {
             BookingDate: time.Now(),
-            TotalPrice:  "7500.00",
+            TotalPrice:  7500.00,
         },
     }
 

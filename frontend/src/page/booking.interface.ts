@@ -8,5 +8,6 @@
 export interface Booking {
     id: number;
     BookingDate: Date;
-    TotalPrice: string; // เปลี่ยนเป็น string
+    TotalPrice: number; // ใช้ number สำหรับ TypeScript แทน float64
+    // ... ฟิลด์อื่น ๆ
 }

@@ -17,4 +17,6 @@ export interface Payment {
     MemberID: number;
     BookingID: number;
     BenefitID: number;
+    amount: number; // เปลี่ยนจาก string เป็น number
 }
+
