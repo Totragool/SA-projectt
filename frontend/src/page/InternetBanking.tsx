@@ -170,8 +170,8 @@
 import React, { useState } from 'react';
 import { Layout, Divider, List, Typography, Button, Card, Form, Input } from 'antd';
 import axios from 'axios'; // เพิ่ม axios สำหรับการเรียก API
-import imageSrc from './assets/Screenshot 2024-09-19 023621.png';
-import { PaymentService } from './apiService';
+// import imageSrc from './assets/Screenshot 2024-09-19 023621.png';
+import { usePaymentService } from './paymentService';
 
 
 const { Header, Footer, Content } = Layout;
@@ -283,7 +283,7 @@ const InternetBanking: React.FC = () => {
         <div className="container">
           <div className="topbar">
             <div style={headerContainerStyle}>
-              <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%', marginRight: '5%' }} />
+              {/* <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%', marginRight: '5%' }} /> */}
               <div>
                 <Button type="primary" style={buttonStyle}>Home</Button>
                 <Button type="primary" style={buttonStyle}>Fight</Button>

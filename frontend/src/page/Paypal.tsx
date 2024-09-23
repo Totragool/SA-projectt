@@ -4,7 +4,7 @@ import { Divider, List, Typography } from 'antd';
 import { Button, Flex } from 'antd';
 import { Card } from 'antd';
 import { Form, Input } from 'antd';
-import imageSrc from './assets/Screenshot 2024-09-19 023621.png';
+// import imageSrc from './assets/Screenshot 2024-09-19 023621.png';
 
 
 const { Header, Footer, Content } = Layout;
@@ -50,7 +50,7 @@ const headerStyle: React.CSSProperties = {
     textAlign: 'center',
     color: '#FFFFFF',
     backgroundColor: '#69ABC1',
-    marginLeft: '92.5%',
+    margin: '0'
   };
 
   const buttoncodeStyle: React.CSSProperties = {
@@ -80,19 +80,21 @@ const headerStyle: React.CSSProperties = {
   const cardStyle: React.CSSProperties = {
     width: '30%',
     marginRight: '5%',
-    marginTop: '-500px',  // เพิ่ม margin-top เพื่อให้ขนานกับ List
+    marginTop: '-100px',  // เพิ่ม margin-top เพื่อให้ขนานกับ List
   };
   
-  
+  const data = [
+    'Paypal'
+  ];
   
 
-const Cards: React.FC = () => (
+const Paypal: React.FC = () => (
   <Layout style={layoutStyle} >
       <Header style={headerStyle}>
         <div className='container'>
             <div className='topbar'>
               <div style={headerContainerStyle}>
-                  <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} />
+                  {/* <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} /> */}
                   <Flex gap="small" wrap>
                     <Button type="primary" style={buttonStyle}>Home</Button>
                     <Button type="primary" style={buttonStyle}>Fight</Button>
@@ -106,63 +108,17 @@ const Cards: React.FC = () => (
       <Content style={contentStyle}>
       <>
         <Divider orientation="left"></Divider>
-        <Card title="Cards" bordered={false} style={listStyle}>
-                 
-              <Form.Item
-                layout="vertical"
-                label="Credit/debit Cards"
-                name="Credit/debit Cards"
-                rules={[{ required: true }]}
-                labelCol={{ span: 24 }}
-                wrapperCol={{ span: 24 }}
-              >
-                <Input placeholder="Credit/debit Cards" style={{ flex : 1 }} />  {/* ใช้ flex: 1 เพื่อให้ Input ขยายเต็มพื้นที่ */}
-              </Form.Item>
-
-              <Form.Item
-        layout="vertical"
-        label="valid until"
-        name="valid until"
-        rules={[{ required: true }]}
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-      >
-        <Input placeholder="valid until" />
-      </Form.Item>
-      <Form.Item
-        layout="vertical"
-        label="CVV/CVC"
-        name="CVV/CVC"
-        rules={[{ required: true }]}
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)', marginLeft: '1.75%' }}
-      >
-        <Input placeholder="CVV/CVC" />
-      </Form.Item>
-
-      <Form.Item
-                layout="vertical"
-                label="Name On Card"
-                name="Name On Card"
-                rules={[{ required: true }]}
-                labelCol={{ span: 24 }}
-                wrapperCol={{ span: 24 }}
-              >
-            <Input placeholder="Name On Card" style={{ flex : 1 }} />  {/* ใช้ flex: 1 เพื่อให้ Input ขยายเต็มพื้นที่ */}
-        </Form.Item>
-
-        <Form.Item
-                layout="vertical"
-                label="Issue Country"
-                name="Issue Country"
-                rules={[{ required: true }]}
-                labelCol={{ span: 24 }}
-                wrapperCol={{ span: 24 }}
-              >
-            <Input placeholder="Issue Country" style={{ flex : 1 }} />  {/* ใช้ flex: 1 เพื่อให้ Input ขยายเต็มพื้นที่ */}
-        </Form.Item>
-
-        <Button type="primary" style={buttonclickStyle}>click</Button> 
-
-          </Card>
+        <List
+            bordered
+            dataSource={data}
+            style={listStyle}
+            renderItem={(item) => (
+            <List.Item >
+                <Typography.Text > {item}</Typography.Text>
+                <Button type="primary" style={buttonclickStyle}>click</Button>
+            </List.Item>
+            )}
+        />
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Card title="Payment" bordered={false} style={cardStyle}>
                  
@@ -205,4 +161,4 @@ const Cards: React.FC = () => (
     </Layout>
 );
 
-export default Cards;
+export default Paypal;

@@ -1,10 +1,9 @@
-export interface Member {
-    id: number;
+// memberCreate.interface.ts
+export interface MemberCreate {
     Password: string;
     Email: string;
     FirstName: string;
     LastName: string;
     Birthday: Date;
     Gender: string;
-    TotalPoint: number;
 }
