@@ -254,7 +254,6 @@ func main() {
     {
         membersRoutes.POST("/", controller.CreateMember)
         membersRoutes.GET("/:id", controller.GetMemberID)
-        membersRoutes.GET("/:id", controller.GetBookingID)
         membersRoutes.GET("/", controller.GetMember)
         membersRoutes.DELETE("/:id", controller.DeleteMember)
         membersRoutes.PATCH("/:id", controller.UpdateMember)
