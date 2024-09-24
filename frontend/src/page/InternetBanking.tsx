@@ -345,7 +345,9 @@
 import React, { useState } from 'react';
 import { Layout, Divider, List, Typography, Button, Card, Form, Input, Flex } from 'antd';
 import { usePaymentService } from './paymentService';
-import { Payment } from './payment.interface'; // นำเข้า interface
+import { useBookingService } from './bookingService';
+const { createPayment } = usePaymentService(); // ใช้ payment service
+const { getBookingById } = useBookingService(); // ใช้ booking service เพื่อดึงการจอง
 
 const { Header, Footer, Content } = Layout;
 
@@ -435,15 +437,26 @@ const data = [
 const InternetBanking: React.FC = () => {
   const [voucherCode, setVoucherCode] = useState<string>(''); // Voucher code from input
   const [paymentStatus, setPaymentStatus] = useState<string>('Pending'); // Payment status
-  const [totalPrice, setTotalPrice] = useState<number>(1000); // Total price
+  const [totalPrice, setTotalPrice] = useState<number>(0); // Total price เริ่มต้นที่ 0
   const { createPayment } = usePaymentService(); // ใช้ payment service
+  const { getBookingById } = useBookingService(); // ใช้ booking service เพื่อดึงการจอง
+  
+  const bookingId = 2; // รหัสการจองที่ต้องการแสดง (ตัวอย่าง)
+
+  // เมื่อเริ่มต้น ให้ดึงข้อมูลการจองและอัปเดต totalPrice
+  React.useEffect(() => {
+    const booking = getBookingById(bookingId);
+    if (booking) {
+      setTotalPrice(booking.TotalPrice); // อัปเดต TotalPrice จากการจอง
+    }
+  }, [getBookingById, bookingId]);
 
   // Handle payment
   const handlePayment = (bankId: number) => {
     const newPayment = {
       PaymentStatus: true, // สถานะการชำระเงินเป็น true เมื่อต้องการจ่าย
       MemberID: 2, // ต้องแทนที่ด้วย ID ที่เหมาะสม
-      BookingID: 2, // ต้องแทนที่ด้วย ID ที่เหมาะสม
+      BookingID: bookingId, // ใช้ BookingID ที่เราเลือก
       BenefitID: 1, // ต้องแทนที่ด้วย ID ที่เหมาะสม
       amount: totalPrice,
       bankId,
