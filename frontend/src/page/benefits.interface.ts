@@ -20,5 +20,4 @@ export interface Benefits {
     Quantity: number;
     Code: string;
     Trip: string;
-    Type: string;
 }

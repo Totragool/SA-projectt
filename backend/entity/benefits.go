@@ -24,8 +24,8 @@ import "gorm.io/gorm"
 type Benefits struct {
     gorm.Model
     BenefitsName  string `gorm:"unique;not null"`
-    FlyingFrom    string
-    GoingTo       string
+    FlyingFrom    string `gorm:"unique;not null"`
+    GoingTo       string `gorm:"unique;not null"`
     PointRequired uint
     Quantity      uint
     Code          string `gorm:"unique;not null"`

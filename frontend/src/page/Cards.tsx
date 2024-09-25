@@ -4,9 +4,9 @@ import { Divider, List, Typography } from 'antd';
 import { Button, Flex } from 'antd';
 import { Card } from 'antd';
 import { Form, Input } from 'antd';
-// import imageSrc from './assets/Screenshot 2024-09-19 023621.png';
 import { usePaymentService } from './paymentService';
 import { useBookingService } from './bookingService';
+import imageSrc from './Screenshot 2024-09-19 023621.png';
 
 const { Header, Footer, Content } = Layout;
 
@@ -262,7 +262,7 @@ const Cards: React.FC = () => {
       <div className='container'>
           <div className='topbar'>
             <div style={headerContainerStyle}>
-                {/* <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} /> */}
+                <img src={imageSrc} alt="description" style={{ width: '10%', height: '10%',marginRight: '5%' }} /> 
                 <Flex gap="small" wrap>
                   <Button type="primary" style={buttonStyle}>Home</Button>
                   <Button type="primary" style={buttonStyle}>Fight</Button>
