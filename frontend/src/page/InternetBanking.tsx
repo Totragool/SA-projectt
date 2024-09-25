@@ -346,8 +346,7 @@ import React, { useState } from 'react';
 import { Layout, Divider, List, Typography, Button, Card, Form, Input, Flex } from 'antd';
 import { usePaymentService } from './paymentService';
 import { useBookingService } from './bookingService';
-const { createPayment } = usePaymentService(); // ใช้ payment service
-const { getBookingById } = useBookingService(); // ใช้ booking service เพื่อดึงการจอง
+import { Payment } from './payment.interface';
 
 const { Header, Footer, Content } = Layout;
 
@@ -441,6 +440,17 @@ const InternetBanking: React.FC = () => {
   const { createPayment } = usePaymentService(); // ใช้ payment service
   const { getBookingById } = useBookingService(); // ใช้ booking service เพื่อดึงการจอง
   
+  
+  const applyVoucherCode = () => {
+    // สมมุติว่า 'PROMO100' เป็น Voucher ที่ถูกต้องเพื่อลดราคา 100%
+    if (voucherCode === 'PROMO100') {
+      setTotalPrice(0); // ลด totalPrice เป็น 0
+      alert('Voucher applied! Total price is now 0 THB.');
+    } else {
+      alert('Invalid voucher code. Please try again.');
+    }
+  };
+
   const bookingId = 2; // รหัสการจองที่ต้องการแสดง (ตัวอย่าง)
 
   // เมื่อเริ่มต้น ให้ดึงข้อมูลการจองและอัปเดต totalPrice
@@ -515,7 +525,7 @@ const InternetBanking: React.FC = () => {
                     style={{ flex: 1 }}
                     placeholder="Enter voucher code"
                   />
-                  <Button type="primary" style={buttoncodeStyle} onClick={() => alert('Voucher applied!')}>Apply</Button>
+                  <Button type="primary" style={buttoncodeStyle} onClick={applyVoucherCode}>Apply</Button>
                 </div>
               </Form.Item>
 
